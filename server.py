@@ -4,44 +4,52 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
+
 def get_db_connection():
-    conn = psycopg2.connect(host='db',
-                            database='movies',
-                            user='postgres',
-                            password='Postgres2023')
+    conn = psycopg2.connect(
+        host="dpg-cqoc8l3v2p9s73anfr6g-a.oregon-postgres.render.com",
+        database="dbweb_r9h4",
+        user="dbweb_r9h4_user",
+        password="cf8mQnk9oJguigY3hWWfEbp4P3Y1b69Y",
+    )
     return conn
 
 
-@app.route('/')
+@app.route("/")
 def index():
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute('SELECT * FROM movies;')
-    movies = [] 
+    cur.execute("SELECT * FROM movies;")
+    movies = []
     moviesFet = cur.fetchall()
     cur.close()
     conn.close()
-    
+
     """
     HTML (<li>) de todos os dados.
     """
     html = ""
-    
+
     for row in moviesFet:
         movies.append({"name": row[0], "rating": row[1]})
-    
+
     for movie in movies:
-    
-        html = html + """
+
+        html = (
+            html
+            + """
             <li class="list-group-item">
                 <span class="badge">%s
                     <span class="glyphicon glyphicon-star"></span>
                 </span>
                 %s
             </li>
-        """ % (movie['rating'], movie['name'])
-       
-    return open('index.html').read()  % (html)
+        """
+            % (movie["rating"], movie["name"])
+        )
+
+    return open("index.html").read() % (html)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80)
