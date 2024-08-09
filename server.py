@@ -7,10 +7,10 @@ app = Flask(__name__)
 
 def get_db_connection():
     conn = psycopg2.connect(
-        host="dpg-cqoc8l3v2p9s73anfr6g-a.oregon-postgres.render.com",
-        database="dbweb_r9h4",
-        user="dbweb_r9h4_user",
-        password="cf8mQnk9oJguigY3hWWfEbp4P3Y1b69Y",
+        host="db-flask-inaldofreitasjr-95a2.k.aivencloud.com",
+        database="defaultdb",
+        user="avnadmin",
+        password="AVNS_OqGn7j7mRQfzV38S_L0",
     )
     return conn
 
